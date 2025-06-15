@@ -1,7 +1,5 @@
 import { Router } from "express"
-
+import passport from 'passport'
 export const routerAuth = Router();
 
-routerAuth.get('/auth' ,(req,res) =>{
-    res.send('login')
-})
+routerAuth.get('/login',passport.authenticate('discord'))
