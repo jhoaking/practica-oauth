@@ -1,14 +1,14 @@
-import { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET } from "../config";
+import { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET } from "../config.js";
 import passport from "passport";
 import { Strategy } from "passport-discord";
-import { users } from "../model/User";
+import { buscarUsuarioPorId, guardarUsuario } from "../model/User.js";
 
 passport.serializeUser((user,done) =>{
-    done(null,user.id)
+    done(null,user.discord_id)
 });
 
 passport.deserializeUser(async (id,done) =>{
-    const user =  await users.findById(id)
+    const user =  await buscarUsuarioPorId(id)
     done(null,user)
 });
 
@@ -21,11 +21,13 @@ passport.use(
       callbackURL: "/auth/redirect",
       scope: ["identify", "guilds"],
     },
-    (access_token, refresh_token, profile, done) => {
+    async (access_token, refresh_token, profile, done) => {
       try {
-        console.log(profile);
-
-        const guardar = users(profile.id, profile.username, profile.guilds);
+        console.log('lo de guardar');
+        
+        const guardar = await guardarUsuario(profile.id, profile.username, profile.guilds);
+        console.log('uiero guardar ', guardar);
+        
         done(null,guardar);
       } catch (error) {
         console.error(error);

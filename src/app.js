@@ -1,6 +1,7 @@
 import express from "express";
 import session from "express-session";
 import passport from "passport";
+import "./strategies/passport.js";
 import { routerApp } from "./routes/index.routes.js";
 import { routerAuth } from "./routes/auth.routes.js";
 import { routerDashboard } from "./routes/dashboard.routes.js";
@@ -8,6 +9,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 export const app = express();
 //settings
@@ -18,7 +20,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(session({
     secret:'some secret',
     saveUninitialized : false,
-    resave : false
+    resave : false 
 }))
 
 app.use(passport.initialize());
