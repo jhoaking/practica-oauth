@@ -16,7 +16,7 @@ app.set("views", path.join(__dirname, "views"));
 //middlewares
 
 
-//routes
+//routes 
 app.use("/", routerApp);
 app.use("/auth", routerAuth);
 app.use("/dashboard", routerDashboard);
