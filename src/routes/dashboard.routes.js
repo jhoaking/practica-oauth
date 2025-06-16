@@ -5,5 +5,6 @@ export const routerDashboard = Router();
 
 
 routerDashboard.get('/' ,(req,res) =>{
-    res.send('dashboard')
+    
+    res.render('dashboard')
 })

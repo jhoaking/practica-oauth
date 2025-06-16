@@ -14,7 +14,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   const user = await buscarUsuarioPorId(id);
   done(null, user);
-});
+}); 
 
 // configurar la forma de autentucar a luuario
 passport.use(
